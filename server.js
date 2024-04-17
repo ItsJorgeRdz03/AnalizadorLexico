@@ -1,11 +1,12 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+//import html from "./static/index.html";
 import * as lexer from "./app.js";
 
 const port = 80;
 //const host = "localhost";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+//const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -15,7 +16,8 @@ app.use(express.static(__dirname + "/static"));
 
 function iniciar() {
   app.get("/", async (req, res) => {
-    res.sendFile(__dirname + "/static/index.html");
+    //res.send(html);
+    res.sendFile("/static/index.html");
   });
 
   app.post("/analizar", async (req, res) => {
