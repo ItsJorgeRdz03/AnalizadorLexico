@@ -1,0 +1,15 @@
+{
+  "name": "lexicoweb",
+  "version": "0.1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "flex-js": "^1.0.5",
+    "path": "^0.12.7",
+    "url": "^0.11.3"
+  },
+  "type": "module"
+}
