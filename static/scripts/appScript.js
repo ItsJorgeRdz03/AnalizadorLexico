@@ -9,7 +9,6 @@ button.addEventListener("click", () => {
   const req = new XMLHttpRequest();
   req.onreadystatechange = function () {
     if (req.readyState == XMLHttpRequest.DONE) {
-      //output.value = undefined;
       output.value = req.responseText;
     }
   };
