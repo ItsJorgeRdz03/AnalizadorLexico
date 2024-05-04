@@ -1,11 +1,10 @@
 {
   "name": "lexicoweb",
   "version": "0.1",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "build": "",
-    "start": "node server.js",
-    "vercel-build": "echo hello"
+    "start": "node index.js"
   },
   "dependencies": {
     "@vercel/node": "^3.0.26",
