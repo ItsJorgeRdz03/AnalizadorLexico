@@ -5,7 +5,7 @@
   "scripts": {
     "build": "",
     "start": "node index.js",
-    "vercel-build": "node index.js"
+    "vercel-build": "echo hello"
   },
   "dependencies": {
     "@vercel/node": "^3.0.26",
