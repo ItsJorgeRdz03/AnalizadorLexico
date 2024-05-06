@@ -14,7 +14,7 @@ lexer.addDefinition("logicos", /(\&\&|\|\||\!|\!\=|\=\=|\>\=|\<\=)/);
 lexer.addDefinition("caracteres", /[\,,\;,\:,\.,\(,\),\{,\},\[,\]]/);
 lexer.addDefinition(
   "reservadas",
-  /(if|else|for|while|do|swtich|case|try|catch|var|let|new|void|null|undefined)/
+  /(if|else|for|while|do|swtich|case|try|catch|var|let|const|function|new|void|null|undefined)/
 );
 lexer.addDefinition("tiposDeDatos", /(int|float|double|char|string|long)/);
 lexer.addDefinition(
