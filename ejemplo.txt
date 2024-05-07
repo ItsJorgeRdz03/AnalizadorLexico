@@ -1,0 +1,14 @@
+const a = Math.random();
+console.log(a);
+function greet() {
+    return "Hello";
+}
+
+function name(user, func)
+{
+    const message = func();
+
+    console.log(message);
+    console.log(user);
+}
+name("John", greet);
