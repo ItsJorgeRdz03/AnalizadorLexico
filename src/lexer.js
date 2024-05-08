@@ -165,4 +165,4 @@ export async function analizar(texto) {
   return cadena.res;
 }
 
-console.log(analizar("x++ * >= == = && ["));
+console.log(lexer.rules);
