@@ -1,162 +1,67 @@
-input
-    -> funcion
-    |  variable
+programa -> sentencia+
+sentencia -> declaracion_variable
+           | declaracion_funcion
+           | sentencia_conditional
+           | sentencia_expresion
+           | NLINEA
 
-funcion
-    -> "function" " " identificador propfun conLA contenido conLC
-    |  "const" " " identificador conIgual propfun conD conLA contenido conLC
+declaracion_variable -> VAR IDENTIFICADOR "=" expresion PCOMA
+                      | LET IDENTIFICADOR "=" expresion PCOMA
+                      | CONST IDENTIFICADOR "=" expresion PCOMA
 
-propfun
-    -> conPA parametros conPC
-    -> conPA conPC
+declaracion_funcion -> FUNCTION IDENTIFICADOR APAREN parametros CPAREN bloque
 
-contenido
-    -> variable
-    |  variable contenido
-    |  objeto
-    |  objeto contenido
+parametros -> IDENTIFICADOR (COMA IDENTIFICADOR)*
+           | /* empty */
 
-variable
-    -> tipoDato " " identificador ";" 
-    |  tipoDato " " identificador conIgual valor ";"
-    |  tipoDato " " identificador conIgual identificador propfun ";"
-    |  tipoDato " " identificador conIgual objeto ";"
-    |  identificador conIgual valor ";" 
-    |  tipoDato " " identificador  conIgual operacion ";"
-    |  identificador conIgual operacion ";" 
-    |  identificador conIgual identificador propfun ";" 
-    |  identificador conIgual objeto ";"
+bloque -> ALLAVE sentencia* CLLAVE
 
-objeto
-    -> propob
-    |  propob "." propfun
+sentencia_conditional -> IF APAREN expresion CPAREN bloque (ELSE bloque)?
 
-propob
-    -> identificador 
-    |  identificador "." objeto
+sentencia_expresion -> expresion PCOMA
 
-operacion
-    -> valor
-    |  valor conOp operacion
-    |  identificador
-    |  identificador conOp operacion
-    |  conCA operacion conCC
+expresion -> term (OPERADOR term)*
 
-valor
-    -> numero
-    |  caracter
-    |  string
-    |  booleano
-    |  arreglo
-    |  null
+term -> IDENTIFICADOR
+    | NUMERO
+    | STRING
+    | APAREN expresion CPAREN
+    | expresion OPERADOR expresion
 
-arreglo
-    -> conCA parametros conCC
+NLINEA -> ESP NLINEA
 
-parametros
-    -> valor
-    |  identificador
-    |  objeto
-    |  valor conComa parametros
-    |  objeto conComa parametros
-    |  identificador conComa parametros
+ESP -> 
 
-numero
-    -> digitos "." digitos
-    |  digitos
+IDENTIFICADOR -> palabra
+    | palabra NUMERO
+    | palabra NUMERO IDENTIFICADOR 
 
-identificador
-    -> lenguaje
-    |  lenguaje identificador
-    |  lenguaje identificador digitos
+STRING -> DCOM [^\"] DCOM
 
-conOp
-    -> operadores
-    |  " " operadores " "
+NUMERO -> digitos
+    | digitos PUNTO digitos
 
-operadores
-    -> "+"
-    |  "-"
-    |  "*"
-    |  "/"
-    |  ">"
-    |  "<"
-    |  ">="
-    |  "<="
-    |  "=="
+digitos -> digito
+    | digito digitos
 
-tipoDato
-    -> "var"
-    |  "let"
-    |  "const"
+FUNCTION -> "function"
+-> ""
+IF -> "if"
+ELSE -> "else"
+VAR -> "var"
+LET -> "let"
+CONST -> "const"
+APAREN -> "("
+CPAREN -> ")"
+ALLAVE -> "{"
+CLLAVE -> "}"
+PUNTO -> "."
+COMA -> ","
+DCOM -> [\"]
+PCOMA -> ";"
 
-Nulo
-    -> "null"
+palabra -> lenguaje
+    | lenguaje palabra
 
-booleano
-    -> "true"
-    |  "false"
-
-string
-    -> "\"" caracteres "\""
-
-digitos
-    -> digito
-    |  digito digitos
-
-caracteres
-    -> caracter
-    |  caracteres
-
-lenguaje
-    -> [a-zA-Z_]
-
-caracter
-    -> [^\"]
-
-digito
-    -> [0-9]
-
-conIgual
- -> "="
- |  " " "=" " "
-
- conPA
- -> "("
- |  " " "("
- |  " " "(" " "
-
- conPC
- -> ")"
- |  " " ")"
- |  " " ")" " "
-
- conLA
- -> "{"
- |  " " "{" 
- |  " " "{" " "
-
- conLC
- -> "}"
- |  " " "}"
- |  " " "}" " "
-
- conCA
- -> "["
- |  " " "["
- |  " " "[" " "
-
- conCC
- -> "]"
- |  " " "]"
- |  " " "]" " "
-
- conComa
- -> ","
- |  "," " "
- 
- conD
- -> "=>"
- |  "=>" " "
- |  " " "=>"
- |  " " "=>" " "
+lenguaje -> [a-zA-Z_]
+digito -> [0-9]
