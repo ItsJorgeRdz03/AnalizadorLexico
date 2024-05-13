@@ -1,67 +1,112 @@
-programa -> sentencia+
-sentencia -> declaracion_variable
-           | declaracion_funcion
-           | sentencia_conditional
-           | sentencia_expresion
-           | NLINEA
+programa -> sentencia:+
 
-declaracion_variable -> VAR IDENTIFICADOR "=" expresion PCOMA
-                      | LET IDENTIFICADOR "=" expresion PCOMA
-                      | CONST IDENTIFICADOR "=" expresion PCOMA
+sentencia -> declaracion_variable NLINEA:* TAB:?
+          |  declaracion_sentencia NLINEA:* TAB:?
+          |  declaracion_funcion NLINEA:* TAB:?
+          |  declaracion_condicional NLINEA:* TAB:?
+          |  declaracion_ciclica NLINEA:* TAB:?
 
-declaracion_funcion -> FUNCTION IDENTIFICADOR APAREN parametros CPAREN bloque
+declaracion_funcion -> FUNCTION ESP funcion ESP ALLAVE NLINEA:? contenido_funcion:+ CLLAVE
+                    |  APAREN parametros CPAREN ESP "=>" ESP ALLAVE NLINEA:? contenido_funcion:+ CLLAVE
 
-parametros -> IDENTIFICADOR (COMA IDENTIFICADOR)*
-           | /* empty */
+contenido_funcion -> TAB:? declaracion_variable NLINEA:*
+                   | TAB:? declaracion_sentencia NLINEA:*
+                   | TAB:? declaracion_condicional NLINEA:*
+                   | TAB:? declaracion_ciclica NLINEA:*
 
-bloque -> ALLAVE sentencia* CLLAVE
+declaracion_ciclica -> FOR ESP APAREN parametros_ciclica CPAREN ESP ALLAVE NLINEA:? contenido_cic:+ TAB:? CLLAVE
 
-sentencia_conditional -> IF APAREN expresion CPAREN bloque (ELSE bloque)?
+parametros_ciclica -> declaracion_variable ESP IDENTIFICADOR ESP COPERADOR ESP term PCOMA ESP IDENTIFICADOR ESP IGUAL ESP operacion
+                    | IDENTIFICADOR PCOMA ESP IDENTIFICADOR ESP COPERADOR ESP NUMERO PCOMA ESP IDENTIFICADOR ESP IGUAL ESP operacion
 
-sentencia_expresion -> expresion PCOMA
+contenido_cic -> TAB:? declaracion_variable NLINEA:*
+                | TAB:? declaracion_sentencia NLINEA:*
+                | TAB:? declaracion_ciclica NLINEA:*
 
-expresion -> term (OPERADOR term)*
+declaracion_condicional -> IF ESP APAREN parametros_condicional CPAREN ESP ALLAVE NLINEA:? contenido_cond:+ TAB:? CLLAVE (ESP ELSE ESP ALLAVE NLINEA:? contenido_cond:+ TAB:? CLLAVE):?
+
+parametros_condicional -> BOOLEANO
+                        | term ESP COPERADOR ESP term (ESP LOPERADOR ESP term ESP COPERADOR ESP term):*
+
+contenido_cond -> TAB:? declaracion_variable NLINEA:*
+                | TAB:? declaracion_sentencia NLINEA:*
+
+declaracion_sentencia -> funcion PCOMA
+                      | objeto IDENTIFICADOR PCOMA
+                      | objeto funcion PCOMA
+
+declaracion_variable -> VAR ESP IDENTIFICADOR ESP IGUAL ESP term PCOMA
+                      | LET ESP IDENTIFICADOR ESP IGUAL ESP term PCOMA
+                      | CONST ESP IDENTIFICADOR ESP IGUAL ESP term PCOMA
+
+objeto -> (IDENTIFICADOR PUNTO):+
+
+funcion -> IDENTIFICADOR APAREN parametros CPAREN
+
+parametros -> (term (COMA ESP term):*):?
+
+
+
+operacion -> term ESP OPERADOR ESP term (ESP OPERADOR ESP term):*
 
 term -> IDENTIFICADOR
     | NUMERO
     | STRING
-    | APAREN expresion CPAREN
-    | expresion OPERADOR expresion
+    | BOOLEANO
 
-NLINEA -> ESP NLINEA
+TAB -> ESP ESP:+ 
 
-ESP -> 
+NLINEA -> ESP:* "\n"
 
-IDENTIFICADOR -> palabra
-    | palabra NUMERO
-    | palabra NUMERO IDENTIFICADOR 
+ESP -> " "
 
-STRING -> DCOM [^\"] DCOM
+IDENTIFICADOR -> lenguaje
+               | (lenguaje NUMERO):+
 
-NUMERO -> digitos
-    | digitos PUNTO digitos
+STRING -> DCOM TEXTO:+ DCOM
 
-digitos -> digito
-    | digito digitos
+TEXTO -> lenguaje
+       | digito
+       | ESP
+
+BOOLEANO -> "true"
+        |  "false"
+
+NUMERO -> digito
+    | digito PUNTO digito
 
 FUNCTION -> "function"
--> ""
+RETURN -> "return"
 IF -> "if"
 ELSE -> "else"
+FOR -> "for"
 VAR -> "var"
 LET -> "let"
 CONST -> "const"
+IGUAL -> "="
 APAREN -> "("
 CPAREN -> ")"
 ALLAVE -> "{"
 CLLAVE -> "}"
 PUNTO -> "."
 COMA -> ","
-DCOM -> [\"]
+DCOM -> ["]
 PCOMA -> ";"
 
-palabra -> lenguaje
-    | lenguaje palabra
+LOPERADOR -> "&&"
+        |  "||"
+        |  "!"
 
-lenguaje -> [a-zA-Z_]
-digito -> [0-9]
+COPERADOR -> "=="
+          |  ">="
+          |  ">"
+          |  "<="
+          |  "<"
+
+OPERADOR -> "+"
+        |  "-"
+        |  "*"
+        |  "/"
+
+lenguaje -> [a-zA-Z_]:+
+digito -> [0-9]:+

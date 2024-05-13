@@ -8,7 +8,6 @@
     "vercel-build": "echo hello"
   },
   "dependencies": {
-    "@vercel/node": "^3.0.26",
     "express": "^4.19.2",
     "flex-js": "^1.0.5",
     "fs": "^0.0.1-security",

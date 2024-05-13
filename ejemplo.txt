@@ -1,14 +1,31 @@
-const a = Math.random();
-console.log(a);
-function greet() {
-    return "Hello";
+var s = 1213;
+const s1 = "hola";
+let s2 = s1;
+
+myfuncion(1, 2);
+
+objeto.atributo;
+
+objeto.myfuncion(asa);
+
+function calc() {
+   var x = 1;
+
+   if (a == ture) {
+     var valor = "saludos";
+   }
 }
 
-function name(user, func)
-{
-    const message = func();
-
-    console.log(message);
-    console.log(user);
+(e) => {
+   myfuncion();
 }
-name("John", greet);
+
+if (b == ture) {
+  var valor = "saludos";
+} else {
+  llamar(v1);
+}
+
+for (let id = 1; id < 5; id = id + 1) {
+   myobjeto.setAtr(i);
+}

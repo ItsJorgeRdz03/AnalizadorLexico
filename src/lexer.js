@@ -165,4 +165,4 @@ export async function analizar(texto) {
   return cadena.res;
 }
 
-console.log(lexer.rules);
+//console.log(lexer.rules);
