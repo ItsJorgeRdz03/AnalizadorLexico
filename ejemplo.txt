@@ -29,3 +29,6 @@ if (b == ture) {
 for (let id = 1; id < 5; id = id + 1) {
    myobjeto.setAtr(i);
 }
+
+
+Ejecutar .ne: npx nearleyc syntax.ne -o syntax.cjs
