@@ -21,7 +21,7 @@ parametros_ciclica -> declaracion_variable ESP IDENTIFICADOR ESP COPERADOR ESP t
 
 contenido_cic -> TAB:? declaracion_variable NLINEA:*
                 | TAB:? declaracion_sentencia NLINEA:*
-                | TAB:? declaracion_ciclica NLINEA:*
+                | TAB:? declaracion_condicional NLINEA:*
 
 declaracion_condicional -> IF ESP APAREN parametros_condicional CPAREN ESP ALLAVE NLINEA:? contenido_cond:+ TAB:? CLLAVE (ESP ELSE ESP ALLAVE NLINEA:? contenido_cond:+ TAB:? CLLAVE):?
 

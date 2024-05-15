@@ -21,39 +21,3 @@ function messageError(e) {
     `en línea ${line} columna ${col}.`;
   return newMessage;
 }
-
-/*import fs, { write } from "fs";
-import { exec } from "child_process";
-
-var texto;
-
-export async function start(text) {
-  await escTexto(text);
-  let data = await leerTexto();
-  return await data;
-}
-
-async function escTexto(text) {
-  fs.writeFile("text.txt", text, function (err) {
-    if (err) {
-      return console.error(err);
-    }
-  });
-  await console.log(1);
-  return;
-}*/
-
-async function leerTexto() {
-  var text;
-  await fs.readFile("text.txt", function read(err, data) {
-    text = data.toString();
-    console.log(data.toString());
-  });
-  return text;
-}
-
-async function execute(command) {
-  exec(command, (err, stdout, stderr) => {
-    process.stdout.write(stdout);
-  });
-}

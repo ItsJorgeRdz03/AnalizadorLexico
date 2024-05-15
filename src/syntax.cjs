@@ -87,7 +87,7 @@ var grammar = {
     {"name": "contenido_cic$ebnf$5", "symbols": [], "postprocess": function(d) {return null;}},
     {"name": "contenido_cic$ebnf$6", "symbols": []},
     {"name": "contenido_cic$ebnf$6", "symbols": ["contenido_cic$ebnf$6", "NLINEA"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "contenido_cic", "symbols": ["contenido_cic$ebnf$5", "declaracion_ciclica", "contenido_cic$ebnf$6"]},
+    {"name": "contenido_cic", "symbols": ["contenido_cic$ebnf$5", "declaracion_condicional", "contenido_cic$ebnf$6"]},
     {"name": "declaracion_condicional$ebnf$1", "symbols": ["NLINEA"], "postprocess": id},
     {"name": "declaracion_condicional$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
     {"name": "declaracion_condicional$ebnf$2", "symbols": ["contenido_cond"]},
